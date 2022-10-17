@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Singla PictureThis Configuration</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    --primary: rgba(0, 123, 255, 1);
+    --border-primary: rgba(222, 222, 222, 1);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  #main header {
+    margin: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  #main header h4 {
+    margin-left: 0.5rem;
+  }
+
+  section {
+    border: 1px solid var(--border-primary);
+    padding: 0.5rem;
+    margin: 0.5rem;
+  }
+
+  .selection {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+
+  .selection>div {
+    color: var(--primary);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--primary);
+    margin: 0 0.30rem 0.15rem 0;
+  }
+
+  .selection>div:hover {
+    outline: 3px solid rgba(0, 123, 255, 0.25);
+  }
+
+  .selection>div.active,
+  .selection>div:hover {
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+  }
+
+
+  .setting-buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 0;
+    margin: 0.25rem;
+    min-width: 80px;
+  }
+
+  p {
+    margin: 0.15rem 0;
+    padding: 0;
+  }
+
+  input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    box-shadow: none;
+    outline: none;
+  }
+
+  input[type="color"]:focus {
+    outline: none;
+  }
+
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    margin: 0;
+  }
+
+  input[type="color"]::-webkit-color-swatch {
+    border: 1px solid var(--border-primary);
+    padding: 0;
+    margin: 0;
+  }
+
+  input[type=text],
+  textarea,
+  select {
+    border: 1px solid var(--border-primary);
+    padding: 0.3rem 0.5rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+
+  input[type=text]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid var(--primary);
+    outline: 3px solid rgba(0, 123, 255, 0.25);
+  }
+
+  label {
+    display: block;
+  }
+
+  .color-ctn,
+  .form-group-flex {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .form-group-flex>div {
+    width: 100%;
+    margin: 1rem 0.5rem;
+  }
+
+  .columns-table td {
+    padding: 0.2rem 0.2rem 0.5rem 0;
+  }
+
+  .columns-table thead {
+    padding: 0.2rem 0.2rem 0.5rem 0;
+    font-weight: 500;
+  }
+
+  .columns-table input[type="text"] {
+    padding: 0.2rem 0.4rem;
+  }
+
+  .formatting-columns {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .formatting-columns>div {
+    margin: 0.25rem;
+    border: 1px solid var(--border-primary);
+    padding: 0.5rem;
+    width: 100%;
+  }
+
+  .formatting-columns input[type="text"],
+  .formatting-columns select {
+    width: 100px;
+  }
+
+  .formatting-columns .form-group {
+    margin-right: 1rem;
+  }
+
+  textarea {
+    width: 100%;
+  }
+
+  .main-content {
+    display: flex;
+  }
+
+  .main-content>div {
+    width: 50%;
+  }
+
+  @media only screen and (max-width: 700px) {
+    .main-content {
+      display: block;
+    }
+
+    .main-content>div {
+      width: 100%;
+    }
+  }
+
+  .label select {
+    width: 200px;
+  }
+</style>
+
+<body>
+  <div id="main">
+    <header>
+      <img
+        src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/48/000000/external-picture-photography-dreamstale-lineal-dreamstale.png" />
+      <h4>Singla PictureThis</h4>
+    </header>
+    <section class="select-worksheet">
+      <h6>Select Data Sheet</h6>
+      <p>
+        Select the worksheet you want to retrieve data from. This worksheet
+        will be the input for PictureThis.
+      </p>
+      <div class="worksheets selection"></div>
+    </section>
+
+    <div class="main-content">
+      <div>
+        <section class="select-columns">
+          <h6>Settings</h6>
+          <p>
+            Select the worksheet you want to retrieve data from. This worksheet
+            will be the input for the visualization you pick in the next step.
+          </p>
+          <!--<p style="font-weight: 500">Which column contains the image URL?</p>
+          <div class="image-column selection"></div>
+          <p style="font-weight: 500">
+            Select additional data to display? (Optional)
+          </p>
+          <div class="extra-column selection"></div>-->
+          <p style="font-weight: 500">
+            Select the columns?
+          </p>
+          <div>
+            <table class="columns-table table table-borderless">
+
+            </table>
+          </div>
+          <p style="font-weight: 500">
+            Select layout?
+          </p>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="layout" value="card">
+              <label class="form-check-label" for="layout">Card Layout</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="layout" value="table">
+              <label class="form-check-label" for="layout">Table Layout</label>
+            </div>
+          </div>
+        </section>
+        <section class="setting-color">
+          <h6>Color</h6>
+          <div class="color-ctn">
+            <label for="background-color">Background color</label>
+            <input type="color" name="background-color" value="#ffffff" />
+          </div>
+          <div class="setting-color-card">
+            <div class="color-ctn">
+              <label for="card-color">Card color</label>
+              <input type="color" name="card-color" value="#ffffff" />
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="card-is-banding">
+              <label class="form-check-label" for="card-is-banding">Enable Card Banding</label>
+            </div>
+            <div class="color-ctn">
+              <label for="card-banding-color">Card Banding color</label>
+              <input type="color" name="card-banding-color" value="#ffffff" />
+            </div>
+          </div>
+          <div class="setting-color-table">
+            <div class="color-ctn">
+              <label for="table-color">Table color</label>
+              <input type="color" name="table-color" value="#ffffff" />
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="table-is-banding">
+              <label class="form-check-label" for="table-is-banding">Enable Row Banding</label>
+            </div>
+            <div class="color-ctn">
+              <label for="table-banding-color">Row Banding color</label>
+              <input type="color" name="table-banding-color" value="#ffffff" />
+            </div>
+          </div>
+          <div class="color-ctn">
+            <label for="border-color">Border color</label>
+            <input type="color" name="border-color" value="#dddddd" />
+          </div>
+          <div class="color-ctn">
+            <label for="text-color">Text color</label>
+            <input type="color" name="text-color" value="#000000" />
+          </div>
+        </section>
+        <section class="conditional-card">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" name="conditional-card-active">
+            <label class="form-check-label" for="conditional-card-active"
+              style="font-weight: 500; font-size: 1rem">Conditional card color</label>
+          </div>
+          <p>
+            Select a dimension and set a condition for the data to format the card background to a specific color.
+          </p>
+          <br />
+          <p style="font-weight: 500">
+            Select the dimension:
+          </p>
+          <div class="conditional-card-column selection">
+
+          </div>
+          <p style="font-weight: 500">
+            Custom dimension colors
+          </p>
+          <div class="conditional-card-column-values" style="align-items: flex-start">
+
+          </div>
+        </section>
+        <section>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" name="card-content-active">
+            <label class="form-check-label" for="card-content-active"
+              style="font-weight: 500; font-size: 1rem">Customize
+              card
+              content</label>
+          </div>
+          <label for="card-content-text">You can use above selected worksheet columns to create custom card content.
+            Example
+            Hello &lt;&lt;ColumnName&gt;&gt;. You can use html and bootstrap to customize the card content. </label>
+          <textarea rows="4" name="card-content-text"></textarea>
+        </section>
+
+        <section>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" name="tooltip-active">
+            <label class="form-check-label" for="tooltip-active"
+              style="font-weight: 500; font-size: 1rem">Tooltip</label>
+          </div>
+          <label for="tooltip-text">You can use above selected worksheet columns to create a tooltop. Example
+            Hello &lt;&lt;ColumnName&gt;&gt;. You can use html and bootstrap to customize the card content. </label>
+          <textarea rows="4" name="tooltip-text"></textarea>
+        </section>
+        <section class="formatting">
+          <h6>Formatting</h6>
+          <div class="formatting-columns">
+
+          </div>
+        </section>
+      </div>
+      <div>
+        <section class="layout">
+          <h6>
+            Layout
+          </h6>
+          <div class="card-layout">
+            <div class="form-group-flex">
+              <div><label for="layout-card-width">Columns</label></div>
+              <div>
+                <input type="text" name="layout-card-width" placeholder="47%" />
+                <p>Column width in % or px. PictureThis will automatically calculate the right amount of columns.
+                  Example:
+                  10%
+                  or 150px</p>
+              </div>
+            </div>
+            <div class="form-group-flex">
+              <div><label for="layout-card-padding">Card padding</label></div>
+              <div>
+                <input type="text" name="layout-card-padding" placeholder="0" />
+                <p>Card padding in pixels. Example: 10px</p>
+              </div>
+            </div>
+            <div class="form-group-flex">
+              <div><label for="layout-card-margin">Card margin</label></div>
+              <div>
+                <input type="text" name="layout-card-margin" placeholder="0" />
+                <p>Card margin in pixels. Example: 10px</p>
+              </div>
+            </div>
+          </div>
+          <div class="table-layout">
+            <div class="form-group-flex">
+              <div><label for="layout-table-width">Table width (in px)</label></div>
+              <div>
+                <input type="text" name="layout-table-width" placeholder="auto" />
+                <p>leave empty for 100% width</p>
+              </div>
+            </div>
+            <div class="form-group-flex">
+              <div>Headers</div>
+              <div class="form-check form-check-inline" style="margin: 0.5rem auto;">
+                <input class="form-check-input" type="checkbox" name="layout-table-headers">
+                <label class="form-check-label" for="layout-table-headers">Show Headers?</label>
+              </div>
+            </div>
+            <div class="form-group-flex">
+              <div></div>
+              <div class="layout-table-columns">
+
+              </div>
+            </div>
+            <div class="form-group-flex">
+              <div><label for="layout-table-row-padding">Row padding</label></div>
+              <div>
+                <input type="text" name="layout-table-row-padding" placeholder="auto" />
+                <p>Padding in pixels. Example: 20px</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group-flex">
+            <div><label for="layout-border-radius">Border radius</label></div>
+            <div>
+              <input type="text" name="layout-border-radius" placeholder="0px" />
+              <p>Border radius in % or px. Example: 10% or 5px</p>
+            </div>
+          </div>
+          <div class="form-group-flex">
+            <div><label for="layout-image-height">Image height</label></div>
+            <div>
+              <input type="text" name="layout-image-height" placeholder="50" />
+              <p>Image height in px. Example: 100px</p>
+              <div class="form-check form-check-inline" style="margin: 0.5rem auto;">
+                <input class="form-check-input" type="checkbox" name="layout-crop-image">
+                <label class="form-check-label" for="layout-crop-image">Crop image?</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group-flex">
+            <div><label for="layout-image-padding">Image padding</label></div>
+            <div>
+              <input type="text" name="layout-image-padding" placeholder="0" />
+              <p>Image padding in pixels. Example: 10px</p>
+            </div>
+          </div>
+          <div class="form-group-flex">
+            <div>Printing</div>
+            <div class="form-check form-check-inline" style="margin: 0.5rem auto;">
+              <input class="form-check-input" type="checkbox" name="print">
+              <label class="form-check-label" for="print">Show a print button</label>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" name="pagination-active">
+            <label class="form-check-label" for="pagination-active"
+              style="font-weight: 500; font-size: 1rem">Pagination</label>
+          </div>
+          <div class="form-group-flex">
+            <div>Items per page</div>
+            <div>
+              <input type="text" name="pagination-item" value=10>
+            </div>
+          </div>
+          <div class="form-group-flex">
+            <div style="font-weight: 500;">Page controls</div>
+          </div>
+          <div class="form-group-flex">
+            <div>Number of page controls</div>
+            <div>
+              <select name="pagination-control" style="width: 164px;">
+                <option>1</option>
+                <option>4</option>
+                <option>6</option>
+                <option>8</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group-flex">
+            <div>Page count</div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="pagination-count" checked>
+              <label class="form-check-label" for="pagination-count">Show page count</label>
+            </div>
+          </div>
+          <div class="form-group-flex">
+            <div>Range indicator</div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="pagination-range" checked>
+              <label class="form-check-label" for="pagination-range">Show range indicator (...)</label>
+            </div>
+          </div>
+        </section>
+
+        <section class="label">
+          <h6>Label</h6>
+          <div class="form-group-flex">
+            <div>Text Align</div>
+            <div>
+              <div class="form-check-inline">
+                <input type="radio" name="label-text-align" class="form-check-input" value="left">
+                <label for="label-text-align" class="form-check-label">Left</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="radio" name="label-text-align" class="form-check-input" value="center">
+                <label for="label-text-align" class="form-check-label">Center</label>
+              </div>
+              <div class="form-check-inline">
+                <input type="radio" name="label-text-align" class="form-check-input" value="right">
+                <label for="label-text-align" class="form-check-label">Right</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group-flex">
+            <div>Font Size</div>
+            <div>
+              <select name="label-font-size"></select>
+            </div>
+          </div>
+          <div class="form-group-flex">
+            <div>Font Family</div>
+            <div>
+              <select name="label-font-family"></select>
+              <p style="font-family: 'Arial';" class="example-font">Arial</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h6>Dashboard Actions</h6>
+          <p style="font-weight: 500">Filter Action (Ctrl + Click to select multiple)</p>
+          <p>Action type</p>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="action-type" value="filter">
+            <label class="form-check-label" for="action-type">Filter Action</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="action-type" value="highlight">
+            <label class="form-check-label" for="action-type">Highlight Action</label>
+          </div>
+          <p style="font-weight: 500">Target Sheets</p>
+          <div class="dashboard-worksheets selection">
+          </div>
+
+          <p style="font-weight: 500">Selected Field</p>
+          <div class="dashboard-column selection">
+
+          </div>
+          <br />
+          <p style="font-weight: 500">URL Action (On mouse right click it will open new tab)</p>
+          <p>
+            When a dimension is selected below, clicking on an image in PictureThis will open a new browser tab. Tip:
+            Prepare your target URL in a calculated field to combine fields.
+          </p>
+          <div class="dashboard-url-action selection">
+
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <section class="setting-buttons">
+      <button style="margin-right: auto" type="button" class="btn btn-secondary">
+        Reset
+      </button>
+      <button type="button" class="btn btn-danger">
+        Cancel
+      </button>
+      <button type="button" class="btn btn-primary">
+        Apply
+      </button>
+      <button type="button" class="btn btn-success">
+        OK
+      </button>
+    </section>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.min.js"
+    integrity="sha512-lzNiA4Ry7CjL8ewMGFZ5XD4wIVaUhvV3Ct9BeFmWmyq6MFc42AdOCUiuUtQgkrVVELHA1kT7xfSLoihwssusQw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    const logSection = document.querySelector("#log");
+
+    function createLog(obj) {
+      const p = document.createElement("p");
+      p.innerHTML = obj.toString();
+      logSection.appendChild(p);
+    }
+
+    const main = {
+      name: "main",
+      data: {
+        workSheetName: "",
+        columns: [],
+        layout: "card",
+        color: {
+          background: "#ffffff",
+          card: {
+            background: "#ffffff",
+            banding: {
+              active: false,
+              background: "#ffffff",
+            },
+          },
+          table: {
+            background: "#ffffff",
+            banding: {
+              active: false,
+              background: "#ffffff",
+            },
+          },
+          border: {
+            color: "rgba(222, 222, 222, 1)"
+          },
+          text: {
+            color: "rgba(0, 0, 0, 1)"
+          }
+        }
+      },
+      worksheets: [],
+      activeWorkSheetIndex: undefined,
+      start: function () {
+        tableau.extensions.initializeDialogAsync().then(function (payload) {
+          main.tableau = tableau;
+          const oldData = getSetting("setting");
+          if (oldData)
+            main.data = JSON.parse(oldData);
+          console.log(main.data);
+          const dashboard = tableau.extensions.dashboardContent.dashboard;
+          createSheetPanel(dashboard);
+          color.start();
+          selectLayout();
+          layout.start(main.data);
+          layout.update();
+          main.data.formatting = formatting.data;
+          conditionalCard.start(main.data);
+          formatting.start(main.data);
+          cardContent.start(main.data);
+          toolTip.start(main.data);
+          label.start(main.data);
+          pagination.start(main.data);
+        }).catch(err => console.log(err));
+      },
+      close: function () {
+        tableau.extensions.ui.closeDialog("");
+      },
+      destroy: function () {
+        main.applyBtn.dispatchEvent(new Event("click"));
+        main.close();
+      },
+      workSheetsDiv: document.querySelector("#main .worksheets"),
+      imageColumnDiv: document.querySelector("#main .image-column"),
+      extraColumnDiv: document.querySelector("#main .extra-column"),
+      closeBtn: document.querySelector(".setting-buttons .btn-danger"),
+      applyBtn: document.querySelector(".setting-buttons .btn-primary"),
+      okBtn: document.querySelector(".setting-buttons .btn-success"),
+      layout: document.getElementsByName("layout"),
+      tableColumns: document.querySelector(".columns-table"),
+      resetBtn: document.querySelector(".setting-buttons .btn-secondary")
+    };
+
+    function createSheetPanel(dashboard) {
+      main.workSheetsDiv.innerHTML = "";
+      main.tableColumns.innerHTML = `<thead><td>Column name</td><td>Position</td><td>Is image</td></thead>`;
+      const worksheets = dashboard.worksheets;
+      for (let i = 0; i < worksheets.length; i++) {
+        main.worksheets.push(worksheets[i]);
+        const div = document.createElement("div");
+        div.innerHTML = worksheets[i].name;
+        div.dataset.key = i;
+        main.workSheetsDiv.appendChild(div);
+        div.addEventListener("click", async function (e) {
+          for (let i = 0; i < main.workSheetsDiv.childElementCount; i++) {
+            main.workSheetsDiv.children[i].classList.remove("active");
+          }
+          const index = parseInt(e.target.dataset.key);
+          e.target.classList.add("active");
+          main.data.workSheetName = e.target.innerHTML;
+          main.activeWorkSheetIndex = index;
+          await newCreateColumnPanel(index);
+        });
+        if (main.data.workSheetName === div.innerHTML) {
+          div.dispatchEvent(new Event("click"));
+        }
+      }
+
+      dashboardSetting.start(main.data, worksheets);
+    }
+
+    const selectColumns = {
+      columns: [],
+      start: function (setting) {
+        this.update();
+      },
+      clear: function () {
+        this.container.innerHTML = "";
+      },
+      update: function () {
+        this.clear();
+      },
+      select: {
+        container: document.querySelector(".select-columns"),
+      },
+      table: {
+        container: document.querySelector(".columns-table")
+      }
+    }
+
+    async function newCreateColumnPanel(index) {
+      const worksheet = main.worksheets[index];
+      const dataTable = await worksheet.getSummaryDataAsync();
+      let columns = dataTable.columns;
+      main.table = create2DData(columns, dataTable.data);
+      const newData = [];
+      main.tableColumns.innerHTML = `<thead><td>Column name</td><td>Position</td><td>Is image</td></thead>`;
+      conditionalCard.clear();
+      let activeColumnList = [];
+      columns.forEach((column, index) => {
+        let data = { name: column.fieldName, position: "", isImageURL: false };
+        let oldData = main.data.columns.find(item => item.name === column.fieldName);
+        if (!oldData) {
+          main.data.columns.push(data);
+        } else data = oldData;
+        activeColumnList.push(data);
+        const tr = document.createElement("tr");
+        const tdname = document.createElement("td");
+        tdname.innerHTML = data.name;
+        tr.appendChild(tdname);
+        const tdinput = document.createElement("td");
+        const posinput = document.createElement("input");
+        posinput.value = data.position;
+        posinput.type = "text";
+        tdinput.appendChild(posinput);
+        posinput.addEventListener("change", function (e) {
+          this.position = e.target.value;
+        }.bind(data));
+        tr.appendChild(tdinput);
+        const tdImage = document.createElement("td");
+        const checkImage = document.createElement("input");
+        checkImage.type = "checkbox";
+        checkImage.checked = data.isImageURL;
+        checkImage.addEventListener("change", function (e) {
+          this.isImageURL = e.target.checked;
+        }.bind(data));
+        tdImage.appendChild(checkImage);
+        tr.appendChild(tdImage);
+        conditionalCard.createColumn(data.name, index);
+        main.tableColumns.appendChild(tr);
+      });
+      dashboardSetting.update(columns);
+      formatting.update(activeColumnList);
+    }
+
+    main.layout.forEach(item => {
+      item.addEventListener("change", function (e) {
+        main.data.layout = item.value;
+        if (item.value === "card") {
+          color.card.container.style.display = "block";
+          color.table.container.style.display = "none";
+          conditionalCard.container.style.display = "block";
+        } else {
+          color.table.container.style.display = "block";
+          color.card.container.style.display = "none";
+          conditionalCard.container.style.display = "none";
+        }
+        layout.start(main.data);
+      });
+    });
+
+
+    function selectLayout() {
+      main.layout.forEach(item => {
+        if (item.value === main.data.layout) item.checked = true;
+        else item.checked = false;
+      });
+    }
+
+    const color = {
+      start: function () {
+        color.card.container.style.display = "none";
+        color.table.container.style.display = "none";
+        color.background.value = main.data.color.background;
+        color.card.background.value = main.data.color.card.background;
+        color.card.banding.active.checked = main.data.color.card.banding.active;
+        color.card.banding.background.value = main.data.color.card.banding.background;
+        color.table.background.value = main.data.color.table.background;
+        color.table.banding.active.checked = main.data.color.table.banding.active;
+        color.table.banding.background.value = main.data.color.table.banding.background;
+        color.border.color.value = main.data.color.border.color;
+        color.text.color.value = main.data.color.text.color;
+        if (main.data.layout === "card") {
+          color.card.container.style.display = "block";
+          color.table.container.style.display = "none";
+        } else {
+          color.table.container.style.display = "block";
+          color.card.container.style.display = "none";
+        }
+      },
+      background: document.getElementsByName("background-color")[0],
+      card: {
+        container: document.querySelector(".setting-color-card"),
+        background: document.getElementsByName("card-color")[0],
+        banding: {
+          active: document.getElementsByName("card-is-banding")[0],
+          background: document.getElementsByName("card-banding-color")[0],
+        }
+      },
+      table: {
+        container: document.querySelector(".setting-color-table"),
+        background: document.getElementsByName("table-color")[0],
+        banding: {
+          active: document.getElementsByName("table-is-banding")[0],
+          background: document.getElementsByName("table-banding-color")[0],
+        }
+      },
+      border: {
+        color: document.getElementsByName("border-color")[0],
+      },
+      text: {
+        color: document.getElementsByName("text-color")[0],
+      },
+    }
+    color.background.addEventListener("change", e => main.data.color.background = e.target.value);
+    color.card.background.addEventListener("change", e => main.data.color.card.background = e.target.value);
+    color.card.banding.active.addEventListener("change", e => main.data.color.card.banding.active = e.target.checked);
+    color.card.banding.background.addEventListener("change", e => main.data.color.card.banding.background = e.target.value);
+    color.table.background.addEventListener("change", e => main.data.color.table.background = e.target.value);
+    color.table.banding.active.addEventListener("change", e => main.data.color.table.banding.active = e.target.checked);
+    color.table.banding.background.addEventListener("change", e => main.data.color.table.banding.background = e.target.value);
+    color.border.color.addEventListener("change", e => main.data.color.border.color = e.target.value);
+    color.text.color.addEventListener("change", e => main.data.color.text.color = e.target.value);
+
+    const conditionalCard = {
+      data: {
+        column: "",
+        active: false,
+        rows: [],
+      },
+      start: function (setting) {
+        this.data = setting.conditionalCard;
+        if (setting.layout !== "card")
+          this.container.style.display = "none";
+        this.active.checked = this.data.active;
+        this.clear();
+      },
+      clear: function () {
+        conditionalCard.selectColumn.innerHTML = "";
+        conditionalCard.columnRowsCtn.innerHTML = "";
+      },
+      createColumn: function (columnName, index) {
+        const div = document.createElement("div");
+        div.innerHTML = columnName;
+        div.dataset.key = index;
+        conditionalCard.selectColumn.appendChild(div);
+        const table = main.table;
+        const divCtn = document.createElement("div");
+        const rows = [];
+        for (let i = 0; i < table.length; i++) {
+          let data = undefined;
+          for (let j = 0; j < conditionalCard.data.rows.length; j++) {
+            if (conditionalCard.data.rows[j].value === table[i][index]) {
+              data = conditionalCard.data.rows[j];
+              break;
+            }
+          }
+          if (!data) {
+            data = {
+              value: table[i][index],
+              color: "#ffffff"
+            }
+            conditionalCard.data.rows.push(data);
+          }
+          if (rows.indexOf(table[i][index]) === -1)
+            divCtn.appendChild(conditionalCard.createRow(table[i][index], data));
+          rows.push(table[i][index]);
+        }
+        conditionalCard.columnRowsCtn.appendChild(divCtn);
+        divCtn.style.display = "none";
+        div.addEventListener("click", function (e) {
+          if (!conditionalCard.data.active) return;
+          for (let i = 0; i < conditionalCard.selectColumn.childElementCount; i++) {
+            conditionalCard.selectColumn.children[i].classList.remove("active");
+            conditionalCard.columnRowsCtn.children[i].style.display = "none";
+          }
+          e.target.classList.add("active");
+          const index = parseInt(e.target.dataset.key);
+          conditionalCard.data.column = e.target.innerHTML;
+          conditionalCard.columnRowsCtn.style.display = "block";
+          conditionalCard.columnRowsCtn.children[index].style.display = "block";
+        });
+        if (conditionalCard.data.column === columnName) div.dispatchEvent(new Event("click"));
+        this.active.dispatchEvent(new Event("change"));
+      },
+      createRow: function (rowValue, data) {
+        const div = document.createElement("div");
+        div.classList.add("color-ctn");
+        const label = document.createElement("label");
+        label.innerHTML = rowValue;
+        div.appendChild(label);
+        const input = document.createElement("input");
+        input.type = "color";
+        input.value = data.color;
+        div.appendChild(input);
+        input.addEventListener("change", function (e) {
+          this.color = e.target.value;
+        }.bind(data));
+        return div;
+      },
+      active: document.getElementsByName("conditional-card-active")[0],
+      container: document.querySelector(".conditional-card"),
+      selectColumn: document.querySelector(".conditional-card-column"),
+      columnRowsCtn: document.querySelector(".conditional-card-column-values"),
+    }
+    conditionalCard.active.addEventListener("change", e => {
+      conditionalCard.data.active = e.target.checked
+      if (e.target.checked) {
+        if (conditionalCard.data.column !== "")
+          conditionalCard.columnRowsCtn.style.display = "block";
+      } else {
+        conditionalCard.columnRowsCtn.style.display = "none";
+      }
+    });
+
+    const layout = {
+      data: {
+        card: {
+          width: "33%",
+          padding: "0px",
+          margin: "0px"
+        },
+        table: {
+          width: "100%",
+          headers: false,
+          columns: [],
+          padding: "0px"
+        },
+        border: {
+          radius: "0px",
+        },
+        image: {
+          height: "50px",
+          crop: false,
+          padding: "0px",
+        },
+        print: false
+      },
+      start: function (setting) {
+        this.clear();
+        this.data = setting.layoutData;
+        if (setting.layout === "card") {
+          this.card.container.style.display = "block";
+          this.table.container.style.display = "none";
+        } else {
+          this.table.container.style.display = "block";
+          this.card.container.style.display = "none";
+        }
+        layout.update();
+      },
+      update: function () {
+        this.clear();
+        this.data.table.columns = this.data.table.columns.filter((column, index) => this.data.table.columns.findIndex(item => item.name === column.name) === index);
+        this.card.width.value = this.data.card.width;
+        this.card.padding.value = this.data.card.padding;
+        this.card.margin.value = this.data.card.margin;
+
+        this.table.width.value = this.data.table.width;
+        this.table.headers.checked = this.data.table.headers;
+        this.table.padding.value = this.data.table.padding;
+        this.border.radius.value = this.data.border.radius;
+
+        this.image.height.value = this.data.image.height;
+        this.image.crop.checked = this.data.image.crop;
+        this.image.padding.value = this.data.image.padding;
+        this.print.checked = this.data.print;
+      },
+      clear: function () {
+        this.table.columns.innerHTML = "";
+      },
+      container: document.querySelector(".layout"),
+      card: {
+        container: document.querySelector(".card-layout"),
+        width: document.getElementsByName("layout-card-width")[0],
+        padding: document.getElementsByName("layout-card-padding")[0],
+        margin: document.getElementsByName("layout-card-margin")[0]
+      },
+      table: {
+        container: document.querySelector(".table-layout"),
+        width: document.getElementsByName("layout-table-width")[0],
+        headers: document.getElementsByName("layout-table-headers")[0],
+        columns: document.querySelector(".layout-table-columns"),
+        padding: document.getElementsByName("layout-table-row-padding")[0],
+      },
+      border: {
+        radius: document.getElementsByName("layout-border-radius")[0],
+      },
+      image: {
+        height: document.getElementsByName("layout-image-height")[0],
+        crop: document.getElementsByName("layout-crop-image")[0],
+        padding: document.getElementsByName("layout-image-padding")[0]
+      },
+      print: document.getElementsByName("print")[0]
+    }
+
+    layout.card.width.addEventListener("change", function (e) {
+      let value = e.target.value;
+      if (e.target.value === "") value = "auto";
+      layout.data.card.width = value;
+    });
+
+    layout.card.margin.addEventListener("change", function (e) {
+      let value = parseFloat(e.target.value) + "px";
+      if (e.target.value === "") value = "0px";
+      layout.data.card.margin = value;
+    });
+
+    layout.card.padding.addEventListener("change", function (e) {
+      let value = parseFloat(e.target.value) + "px";
+      if (e.target.value === "") value = "0px";
+      layout.data.card.padding = value;
+    });
+
+    layout.table.width.addEventListener("change", function (e) {
+      let value = e.target.value;
+      if (e.target.value === "") value = "100%";
+      layout.data.table.width = value;
+    });
+
+    layout.table.headers.addEventListener("change", e => layout.data.table.headers = e.target.checked);
+
+    layout.table.padding.addEventListener("change", function (e) {
+      let value = parseFloat(e.target.value) + "px";
+      if (e.target.value === "") value = "0px";
+      layout.data.table.padding = value;
+    });
+
+    layout.border.radius.addEventListener("change", function (e) {
+      let value = e.target.value;
+      if (e.target.value === "") value = "0px";
+      layout.data.border.radius = value;
+    });
+
+    layout.image.height.addEventListener("change", function (e) {
+      let value = parseFloat(e.target.value) + "px";
+      if (e.target.value === "") value = "auto";
+      layout.data.image.height = value;
+    });
+
+    layout.image.crop.addEventListener("change", e => layout.data.image.crop = e.target.checked);
+
+    layout.image.padding.addEventListener("change", function (e) {
+      let value = parseFloat(e.target.value) + "px";
+      if (e.target.value === "") value = "0px";
+      layout.data.image.padding = value;
+    });
+
+    layout.print.addEventListener("change", e => layout.data.print = e.target.checked);
+
+    const dashboardSetting = {
+      data: {
+        type: "filter",
+        workSheetsName: [],
+        column: "",
+        urlActionColumn: ""
+      },
+      start: function (setting, worksheets) {
+        this.data = setting.dashboardSetting;
+        this.columnsCtn.innerHTML = "";
+        this.urlActionCtn.innerHTML = "";
+      
+        if (this.data.type === "filter") {
+          this.actionType[0].checked = true;
+        } else this.actionType[1].checked = true;
+        this.workSheetsCtn.innerHTML = "";
+        worksheets.forEach(worksheet => {
+          const div = document.createElement("div");
+          div.innerHTML = worksheet.name;
+          if (this.data.workSheetsName.indexOf(worksheet.name) > -1) div.classList.add("active");
+
+          div.addEventListener("click", function (e) {
+            e.target.classList.toggle("active");
+
+            const workSheetsName = dashboardSetting.data.workSheetsName;
+            if (e.target.classList.contains("active")) {
+              workSheetsName.push(e.target.innerHTML);
+            } else {
+              workSheetsName.splice(workSheetsName.indexOf(e.target.innerHTML), 1);
+            }
+
+            if (workSheetsName.length === 0) {
+              dashboardSetting.columnsCtn.style.display = "none";
+            } else dashboardSetting.columnsCtn.style.display = "flex";
+          });
+          this.workSheetsCtn.appendChild(div);
+        });
+      },
+      update: function (columns) {
+        this.columnsCtn.innerHTML = "";
+        columns.forEach(column => {
+          const div = document.createElement("div");
+          div.innerHTML = column.fieldName;
+          if (this.data.column === column.fieldName) div.classList.add("active");
+          div.addEventListener("click", function (e) {
+            dashboardSetting.data.column = e.target.innerHTML;
+
+            const columns = dashboardSetting.columnsCtn;
+            for (let i = 0; i < columns.childElementCount; i++) {
+              columns.children[i].classList.remove("active");
+            }
+            e.target.classList.add("active");
+          });
+          this.columnsCtn.append(div);
+        });
+
+        this.urlActionCtn.innerHTML = "";
+        columns.forEach(column => {
+          const div = document.createElement("div");
+          div.innerHTML = column.fieldName;
+          if (this.data.urlActionColumn === column.fieldName) div.classList.add("active");
+          div.addEventListener("click", function (e) {
+            dashboardSetting.data.urlActionColumn = e.target.innerHTML;
+            
+            const columns = dashboardSetting.urlActionCtn;
+            for (let i = 0; i < columns.childElementCount; i++) {
+              columns.children[i].classList.remove("active");
+            }
+            e.target.classList.add("active");
+          });
+          this.urlActionCtn.append(div);
+        });
+      },
+      destroy: function () {
+
+      },
+      actionType: document.getElementsByName("action-type"),
+      workSheetsCtn: document.querySelector(".dashboard-worksheets"),
+      columnsCtn: document.querySelector(".dashboard-column"),
+      urlActionCtn: document.querySelector(".dashboard-url-action")
+    }
+
+    dashboardSetting.actionType.forEach(item => {
+      item.addEventListener("change", e => {
+        dashboardSetting.data.type = e.target.value;
+      });
+    });
+
+    const formatting = {
+      data: [],
+      formatOption: ["None", "Decimal", "Percentage", "Text", "Barcode"],
+      displayUnits: ["None", "Thousands (K)", "Millions (M)", "Billions (B)"],
+      listCtn: document.querySelector(".formatting-columns"),
+      start: function (setting) {
+        this.data = setting.formatting;
+        this.listCtn.innerHTML = "";
+      },
+      update: function (columns) {
+        this.listCtn.innerHTML = "";
+        columns.forEach(column => {
+          let data = {
+            columnName: column.name, alias: column.name, format: "None",
+            prefix: "", suffix: "", decimal: "", displayUnit: "None", isThousand: false
+          };
+
+          if (!column.formatting) {
+            column.formatting = data;
+          } else data = column.formatting;
+
+          this.listCtn.appendChild(this.createColumn(data));
+        });
+      },
+      createColumn: function (data) {
+        const div = document.createElement("div");
+        div.appendChild(this.createColumnName(data));
+        const div1 = document.createElement("div");
+        div1.style.display = "flex";
+        div1.style.flexWrap = "wrap";
+        div1.appendChild(this.createAlias(data));
+        div1.appendChild(this.createFormat(data));
+        div.appendChild(div1);
+        const div2 = document.createElement("div");
+        div2.style.display = "flex";
+        div2.style.flexWrap = "wrap";
+        div2.appendChild(this.createDecimal(data));
+        div2.appendChild(this.createPrefix(data));
+        div2.appendChild(this.createSuffix(data));
+        div2.appendChild(this.createDisplayUnit(data));
+        div.appendChild(div2);
+        div.appendChild(this.createIsThousand(data));
+        return div;
+      },
+      createColumnName: function (data) {
+        const p = document.createElement("p");
+        p.style.fontWeight = 500;
+        p.innerHTML = data.columnName;
+        return p;
+      },
+      createAlias: function (data) {
+        const div = document.createElement("div");
+        div.classList.add("form-group");
+        const label = document.createElement("label");
+        label.innerHTML = "Alias";
+        div.appendChild(label);
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = data.alias;
+        input.addEventListener("change", function (e) {
+          this.alias = e.target.value;
+        }.bind(data));
+        div.appendChild(input);
+        return div;
+      },
+      createFormat: function (data) {
+        const div = document.createElement("div");
+        div.classList.add("form-group");
+        const label = document.createElement("label");
+        label.innerHTML = "Format";
+        div.appendChild(label);
+        const select = document.createElement("select");
+        formatting.formatOption.forEach(item => {
+          const option = document.createElement("option");
+          option.innerHTML = item;
+          select.appendChild(option);
+        });
+        select.value = data.format;
+        select.addEventListener("change", function (e) {
+          this.format = e.target.value;
+        }.bind(data));
+        div.appendChild(select);
+        return div;
+      },
+      createDecimal: function (data) {
+        const div = document.createElement("div");
+        div.classList.add("form-group");
+        const label = document.createElement("label");
+        label.innerHTML = "Decimal";
+        div.appendChild(label);
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = data.decimal;
+        input.addEventListener("change", function (e) {
+          this.decimal = e.target.value;
+        }.bind(data));
+        div.appendChild(input);
+        return div;
+      },
+      createPrefix: function (data) {
+        const div = document.createElement("div");
+        div.classList.add("form-group");
+        const label = document.createElement("label");
+        label.innerHTML = "Prefix";
+        div.appendChild(label);
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = data.prefix;
+        input.addEventListener("change", function (e) {
+          this.prefix = e.target.value;
+        }.bind(data));
+        div.appendChild(input);
+        return div;
+      },
+      createSuffix: function (data) {
+        const div = document.createElement("div");
+        div.classList.add("form-group");
+        const label = document.createElement("label");
+        label.innerHTML = "Suffix";
+        div.appendChild(label);
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = data.suffix;
+        input.addEventListener("change", function (e) {
+          this.suffix = e.target.value;
+        }.bind(data));
+        div.appendChild(input);
+        return div;
+      },
+      createDisplayUnit: function (data) {
+        const div = document.createElement("div");
+        div.classList.add("form-group");
+        const label = document.createElement("label");
+        label.innerHTML = "Display Units";
+        div.appendChild(label);
+        const select = document.createElement("select");
+        formatting.displayUnits.forEach(item => {
+          const option = document.createElement("option");
+          option.innerHTML = item;
+          select.appendChild(option);
+        });
+        select.value = data.displayUnit;
+        select.style.width = "100px";
+        select.addEventListener("change", function (e) {
+          this.displayUnit = e.target.value;
+        }.bind(data));
+        div.appendChild(select);
+        return div;
+      },
+      createIsThousand: function (data) {
+        const div = document.createElement("div");
+        div.classList.add("form-check-inline");
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.checked = data.isThousand;
+        input.classList.add("form-check-input");
+        input.addEventListener("change", function (e) {
+          data.isThousand = e.target.checked;
+        }.bind(data));
+        div.appendChild(input);
+        const label = document.createElement("label");
+        label.classList.add("form-check-label");
+        label.innerHTML = "Is thousand operators";
+        div.appendChild(label);
+        return div;
+      }
+    }
+
+    const cardContent = {
+      data: {
+        active: false,
+        text: "",
+      },
+      start: function (setting) {
+        if (!setting.cardContent) {
+          this.data = { text: "", active: false }
+        } else this.data = setting.cardContent;
+        this.textarea.value = this.data.text;
+        this.active.checked = this.data.active;
+      },
+      active: document.getElementsByName("card-content-active")[0],
+      textarea: document.getElementsByName("card-content-text")[0]
+    }
+    cardContent.active.addEventListener("change", e => cardContent.data.active = e.target.checked);
+    cardContent.textarea.addEventListener("change", e => cardContent.data.text = e.target.value);
+
+    const toolTip = {
+      data: {
+        active: false,
+        text: "",
+      },
+      start: function (setting) {
+        if (!setting.toolTip) {
+          this.data = { text: "", active: false }
+        } else this.data = setting.toolTip;
+        this.textarea.value = this.data.text;
+        this.active.checked = this.data.active;
+      },
+      active: document.getElementsByName("tooltip-active")[0],
+      textarea: document.getElementsByName("tooltip-text")[0]
+    }
+    toolTip.active.addEventListener("change", e => toolTip.data.active = e.target.checked);
+    toolTip.textarea.addEventListener("change", e => toolTip.data.text = e.target.value);
+
+    const label = {
+      data: {
+        align: "center",
+        fontSize: "11pt",
+        fontFamily: "Arial"
+      },
+      fonts: ["Arial", "Arial Black", "Arial Narrow", "Copperplate",
+        "Courier", "Courier New", "Georgia", "Lucida Bright", "Lucida Sans Typewriter", "Palatino",
+        "Papyrus", "Tahoma", "Segoe UI", "Times New Roman", "Trebuchet MS", "Verdana"],
+      start: function (setting) {
+        if (setting.label) this.data = setting.label;
+        this.textAligns.forEach(item => {
+          if (item.value === label.data.align) item.checked = true;
+        })
+        this.fontSize.value = this.data.fontSize;
+        this.fontFamily.value = this.data.fontFamily;
+        this.example.innerHTML = this.data.fontFamily;
+        this.example.style.fontFamily = this.data.fontFamily;
+      },
+      textAligns: document.getElementsByName("label-text-align"),
+      fontSize: document.getElementsByName("label-font-size")[0],
+      fontFamily: document.getElementsByName("label-font-family")[0],
+      example: document.querySelector(".example-font"),
+    }
+
+    label.textAligns.forEach(item => {
+      item.addEventListener("change", function (e) {
+        if (e.target.checked) label.data.align = e.target.value;
+      });
+    });
+    label.textAligns[1].checked = true;
+
+    for (let i = 6; i < 25; i++) {
+      const option = document.createElement("option");
+      option.innerHTML = i + "pt";
+      label.fontSize.appendChild(option);
+    }
+    label.fontSize.value = "11pt";
+    label.fontSize.addEventListener("change", e => label.data.fontSize = e.target.value);
+
+    label.fonts.forEach(font => {
+      const option = document.createElement("option");
+      option.innerHTML = font;
+      option.style.fontFamily = font;
+      label.fontFamily.appendChild(option);
+    });
+    label.fontFamily.addEventListener("change", e => {
+      label.data.fontFamily = e.target.value;
+      label.example.innerHTML = e.target.value;
+      label.example.style.fontFamily = e.target.value;
+    });
+    label.fontFamily.value = "Arial";
+
+    const pagination = {
+      data: {
+        active: false,
+        item: 10,
+        control: 1,
+        isCount: true,
+        isRange: true,
+      },
+      start: function (setting) {
+        if (setting.pagination) {
+          this.data = setting.pagination;
+        }
+        this.active.checked = this.data.active;
+        this.pageItem.value = this.data.item;
+        this.pageControl.value = this.data.control;
+        this.pageCount.checked = this.data.isCount;
+        this.pageRange.checked = this.data.isRange;
+      },
+      active: document.getElementsByName("pagination-active")[0],
+      pageItem: document.getElementsByName("pagination-item")[0],
+      pageControl: document.getElementsByName("pagination-control")[0],
+      pageCount: document.getElementsByName("pagination-count")[0],
+      pageRange: document.getElementsByName("pagination-range")[0]
+    }
+
+    pagination.active.addEventListener("change", e => pagination.data.active = e.target.checked);
+    pagination.pageItem.addEventListener("change", e => pagination.data.item = e.target.value);
+    pagination.pageControl.addEventListener("change", e => pagination.data.control = e.target.value);
+    pagination.pageCount.addEventListener("change", e => pagination.data.isCount = e.target.checked)
+    pagination.pageRange.addEventListener("change", e => pagination.data.isRange = e.target.checked);
+
+    main.closeBtn.addEventListener("click", function (e) {
+      main.close();
+    });
+
+    main.applyBtn.addEventListener("click", function (e) {
+      setSetting("setting", JSON.stringify(main.data));
+      saveSetting();
+    });
+
+    main.okBtn.addEventListener("click", function (e) {
+      main.destroy();
+    });
+
+    main.resetBtn.addEventListener("click", function (e) {
+      tableau.extensions.settings.erase("setting");
+      main.data = globalSetting;
+      main.start();
+    });
+
+    function getWorksheetByName(dashboard, workSheetName) {
+      const worksheets = dashboard.worksheets;
+      for (let i = 0; i < worksheets.length; i++) {
+        if (worksheets[i].name === workSheetName) {
+          return worksheets[i];
+        }
+      }
+      return undefined;
+    }
+
+    async function getDataTable(workSheet) {
+      try {
+        const logicalTables = await workSheet.getUnderlyingTablesAsync();
+        const logicalTableId = logicalTables[0].id;
+        const dataTable = await workSheet.getUnderlyingTableDataAsync(logicalTableId);
+        return dataTable;
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    function create2DData(columns, data) {
+      const arr = [];
+      for (let row of data) {
+        let res = [];
+        columns.forEach(column => {
+          if (column)
+            res.push(row[column.index].value);
+          else res.push("");
+        });
+        arr.push(res);
+      }
+      return arr;
+    }
+
+    function getSetting(key) {
+      return tableau.extensions.settings.get(key);
+    }
+
+    function setSetting(key, value) {
+      tableau.extensions.settings.set(key, value);
+    }
+
+    function saveSetting() {
+      tableau.extensions.settings
+        .saveAsync()
+        .then((result) => { })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    const globalSetting = {
+      "workSheetName": "",
+      "columns": [],
+      "layout": "card",
+      "color": {
+        "background": "#ffffff",
+        "card": {
+          "background": "#ffffff",
+          "banding": {
+            "active": false,
+            "background": "#ffffff"
+          }
+        },
+        "table": {
+          "background": "#ffffff",
+          "banding": {
+            "active": false,
+            "background": "#ffffff"
+          }
+        },
+        "border": {
+          "color": "rgba(222, 222, 222, 1)"
+        },
+        "text": {
+          "color": "rgba(0, 0, 0, 1)"
+        }
+      },
+      "layoutData": {
+        "card": {
+          "width": "33%",
+          "padding": "0px",
+          "margin": "0px"
+        },
+        "table": {
+          "width": "100%",
+          "headers": false,
+          "columns": [],
+          "padding": "0px"
+        },
+        "border": {
+          "radius": "0px"
+        },
+        "image": {
+          "height": "50px",
+          "crop": false,
+          "padding": "0px"
+        },
+        "print": false
+      },
+      "conditionalCard": {
+        "column": "",
+        "active": false,
+        "rows": []
+      },
+      "formatting": [],
+      "dashboardSetting": {
+        "type": "filter",
+        "workSheetsName": [],
+        "column": "",
+        "urlActionColumn": ""
+      },
+      "cardContent": {
+        "active": false,
+        "text": ""
+      },
+      "toolTip": {
+        "active": false,
+        "text": ""
+      },
+      "label": {
+        "align": "center",
+        "fontSize": "11pt",
+        "fontFamily": "Arial"
+      },
+      "pagination": {
+        "active": false,
+        "item": 10,
+        "control": 1,
+        "isCount": true,
+        "isRange": true
+      }
+    }
+    main.data = globalSetting;
+    main.start();
+
+  </script>
+</body>
+
+</html>
