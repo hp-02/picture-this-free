@@ -44,6 +44,20 @@
             color: var(--primary-color);
         }
 
+        .btn-outline-primary:hover,
+        .btn-outline-primary:active {
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+            color: white !important;
+        }
+
+        .btn-outline-primary:focus {
+            background-color: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+            color: white !important;
+            box-shadow: 0 0 0 0.2rem rgb(231 12 104/ 50%) !important;
+        }
+
         .primary-color {
             color: var(--primary-color);
         }
@@ -73,13 +87,56 @@
             font-size: 1.2rem;
         }
 
-        @media only screen and (max-width: 600px) {
-            #home>div {
+        #starter,
+        #feature {
+            padding: 1rem;
+            background-color: #fcfcfc;
+        }
+
+        #starter .btn {
+            background-color: white;
+            margin: 1rem 0;
+        }
+
+        #starter ul,
+        #feature ul {
+            padding-left: 1rem;
+        }
+
+        #multiple-image>div {
+            display: flex;
+            width: 100%;
+            justify-content: space-evenly;
+        }
+
+        #multiple-image>div>div {
+            padding: 1rem;
+        }
+
+        #multiple-image>div p {
+            margin: 0rem !important;
+        }
+
+        #home img,
+        #multiple-image>div img {
+            width: 100%;
+            height: auto;
+        }
+
+        @media only screen and (max-width: 800px) {
+
+            #home>div,
+            #multiple-image>div {
                 display: block;
             }
 
             #home img {
-                width: 100%;
+                margin-top: 1rem;
+            }
+
+            #multiple-image>div>div {
+                padding: 0rem;
+                margin-bottom: 1rem;
             }
         }
     </style>
@@ -97,7 +154,7 @@
         <div id="title">
             <h1>PictureThis Free</h1>
             <h4>Create dynamic image tables with your data – Use an image table to filter your dashboards.</h4>
-            <button class="btn btn-outline-primary"><a class="primary-color" href="#starter">Get Started</a></button>
+            <button class="btn btn-outline-primary">Get Started</button>
         </div>
     </header>
     <section id="home">
@@ -119,17 +176,83 @@
                 <img src="./assets/bg_1.png" alt="bg_1" />
             </div>
         </div>
-        <div>
-            
-            <a href="https://appsfortableau.infotopics.com/extensions-for-tableau/picturethis/">To learn more about this extension visit its official site by clicking this link.</a>
+        <div style="background: white;">
+            <a href="https://appsfortableau.infotopics.com/extensions-for-tableau/picturethis/">To learn more about this
+                extension visit its official site by clicking this link.</a>
         </div>
     </section>
 
     <section id="starter">
-
+        <h2>How to get started?</h2>
+        <ul>
+            <li>
+                <p>To integrate this extension you will need TREX (Tableau Extension) file.</p>
+                <button class="btn btn-outline-primary btn-block">Download TREX file</button>
+            </li>
+            <li>
+                <p>
+                    Start Tableau and open a workbook that has a dashboard, or open a workbook and create a new
+                    dashboard.
+                    For example, you could use one of the Tableau sample workbooks like Superstore to start with.
+                </p>
+            </li>
+            <li>
+                <p>
+                    In the dashboard, under Objects, select Extension and drag it on to the dashboard.
+                </p>
+                <img src="https://tableau.github.io/extensions-api/assets/frelard_objects_extension.png" />
+            </li>
+            <li>
+                <p>
+                    A dialog box will appear select the <b>My Extensions</b>. Locate the <b>PictureThis.trex</b> file.
+                </p>
+            </li>
+            <li>
+                <p>
+                    For first time it will ask for the permission.
+                    <a href="https://help.tableau.com/current/server/en-us/dashboard_extensions_server.htm">
+                        To learn more about providing permission on Tableau click on this link.
+                    </a>
+                </p>
+            </li>
+            <li>
+                <p>
+                    If you are starting extension a configure button will appear. On clicking on it configuration panel
+                    will open
+                    select a sheet and column and enjoy my extension.
+                </p>
+            </li>
+        </ul>
+    </section>
+    <p style="padding: 1rem; text-align: center">
+        <a
+            href="https://tableau.github.io/extensions-api/docs/trex_getstarted.html#:~:text=In%20the%20dashboard%2C%20under%20Objects,location%20of%20the%20web%20application.">
+            To learn more about how to integrate Tableau extension click on this link.
+        </a>
+    </p>
     </section>
     <section id="feature">
-
+        <h2>Feature</h2>
+        <ul>
+            <li>
+                <div id="multiple-image">
+                    <p>This extension allows user to select multiple images.</p>
+                    <div>
+                        <div>
+                            <p>
+                                Select multiple images by checking it as image on configuration setting.
+                            </p>
+                            <img src="/assets/bg_2.png" height="300px" alt="configuration-setting"
+                                title="configuration-setting">
+                        </div>
+                        <div>
+                            <p>On dashboard for card layout you will get swipable carousel.</p>
+                            <img src="/assets/bg_3.png" alt="dashboard-view" title="dashboard-view">
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </section>
     <footer id="contact">
 
