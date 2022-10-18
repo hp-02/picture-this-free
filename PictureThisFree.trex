@@ -4,10 +4,10 @@
     <default-locale>PictureThis Free Extension!</default-locale>
     <name resource-id="name"/>
     <description>PictureThis Free to view data easily.</description>
-    <author name="Your Name" email="you@email.com" organization="Your Company" website="https://www.yourwebsite.com"/>
+    <author name="Harsh Pandey" email="harshpandey3421@gmail.com" organization="PictureThis Free" website="https://squid-app-4po7k.ondigitalocean.app/home"/>
     <min-api-version>0.9</min-api-version>
     <source-location>
-      <url>http://localhost:8000/</url>
+      <url>https://squid-app-4po7k.ondigitalocean.app/</url>
     </source-location>
     <icon></icon>
     <permissions>
