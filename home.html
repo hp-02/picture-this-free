@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PictureThis Free Tableau Extension</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            --primary-color: rgb(231, 32, 104);
+        }
+
+        #links-ctn ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            background-color: #fcfcfc;
+        }
+
+        #links-ctn a {
+            color: var(--primary-color);
+        }
+
+        #links-ctn li {
+            padding: 1rem;
+        }
+
+        #title {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        #title h1 {
+            margin: 1rem;
+        }
+
+        .btn-outline-primary {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .primary-color {
+            color: var(--primary-color);
+        }
+
+        #home>div {
+            background-color: #fcfcfc;
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            padding: 1rem;
+        }
+
+        #home>div>div {
+            width: 100%;
+            padding: 1rem;
+        }
+
+        #home>div>div:nth-child(2) {
+            text-align: center;
+        }
+
+        #home img {
+            width: 600px;
+        }
+
+        #home p {
+            font-size: 1.2rem;
+        }
+
+        @media only screen and (max-width: 600px) {
+            #home>div {
+                display: block;
+            }
+
+            #home img {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div id="links-ctn">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#feature">Feature</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div id="title">
+            <h1>PictureThis Free</h1>
+            <h4>Create dynamic image tables with your data – Use an image table to filter your dashboards.</h4>
+            <button class="btn btn-outline-primary"><a class="primary-color" href="#starter">Get Started</a></button>
+        </div>
+    </header>
+    <section id="home">
+        <div>
+            <div>
+                <p>The PictureThis Tableau extension helps you create dynamic image tables that can be used as a filter
+                    in
+                    your
+                    dashboard. Use Image URLs from your dataset that automatically create a responsive image table. The
+                    images
+                    will
+                    act as a filter on another target sheet in your dashboard. Images are not stored in your dashboard,
+                    they
+                    will
+                    dynamically be lined up in an image table based on your data and can be used as a filter!
+                </p>
+            </div>
+            <div>
+                <img src="./assets/bg_1.png" alt="bg_1" />
+            </div>
+        </div>
+        <div>
+            
+            <a href="https://appsfortableau.infotopics.com/extensions-for-tableau/picturethis/">To learn more about this extension visit its official site by clicking this link.</a>
+        </div>
+    </section>
+
+    <section id="starter">
+
+    </section>
+    <section id="feature">
+
+    </section>
+    <footer id="contact">
+
+    </footer>
+</body>
+
+</html>
