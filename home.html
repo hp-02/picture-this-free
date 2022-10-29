@@ -2,261 +2,899 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PictureThis Free Tableau Extension</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            --primary-color: rgb(231, 32, 104);
-        }
+  <title>PictureThis Free</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.css"
+    integrity="sha512-HGWrJz+Lr07phD0DNoLsSVwn3przno/eSLf1cGOrLzr6c7NUZROZJPhQdSPmLHNbsO0HP2UfUnpKTMiVxonEHw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"
+    integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" />
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8183007174124487"
+    crossorigin="anonymous"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-size: 0.85rem;
+      --primary: rgba(0, 123, 255, 1);
+      --border-primary: rgba(222, 222, 222, 1);
+    }
 
-        #links-ctn ul {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            background-color: #fcfcfc;
-        }
+    section {
+      width: 100%;
+    }
 
-        #links-ctn a {
-            color: var(--primary-color);
-        }
+    #images-ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
 
-        #links-ctn li {
-            padding: 1rem;
-        }
+    #images-ul>li {
+      border: 1px solid rgb(218, 216, 216);
+      padding: 0.5rem;
+      margin: 0.5rem;
+      background: white;
+      word-wrap: break-word;
+    }
 
-        #title {
-            text-align: center;
-            padding: 1rem;
-        }
+    #images-ul img,
+    #images-table img {
+      cursor: pointer;
+      height: 50px;
+    }
 
-        #title h1 {
-            margin: 1rem;
-        }
+    #images-ul p,
+    #images-table p {
+      margin: 0;
+      padding: 0;
+    }
 
-        .btn-outline-primary {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-        }
+    #images-table {
+      background: white;
+      table-layout: fixed;
+      word-wrap: break-word;
+    }
 
-        .btn-outline-primary:hover,
-        .btn-outline-primary:active {
-            background-color: var(--primary-color) !important;
-            border-color: var(--primary-color) !important;
-            color: white !important;
-        }
+    #images-table tr {
+      border-bottom: 1px solid var(--border-primary);
+    }
 
-        .btn-outline-primary:focus {
-            background-color: var(--primary-color) !important;
-            border-color: var(--primary-color) !important;
-            color: white !important;
-            box-shadow: 0 0 0 0.2rem rgb(231 12 104/ 50%) !important;
-        }
+    #images-table td {
+      vertical-align: middle;
+    }
 
-        .primary-color {
-            color: var(--primary-color);
-        }
+    #configure,
+    #error {
+      display: none;
+      border: 1px solid var(--border-primary);
+      margin: 1rem auto;
+      padding: 0.5rem;
+      width: 90%;
+    }
 
-        #home>div {
-            background-color: #fcfcfc;
-            width: 100%;
-            display: flex;
-            justify-content: space-evenly;
-            padding: 1rem;
-        }
+    .btn {
+      padding-top: 0;
+      padding-bottom: 0;
+      border-radius: 0;
+      margin: 0.25rem;
+    }
 
-        #home>div>div {
-            width: 100%;
-            padding: 1rem;
-        }
+    .image-carousel {
+      width: 100%;
+    }
 
-        #home>div>div:nth-child(2) {
-            text-align: center;
-        }
+    .image-carousel>div {
+      width: 100%;
+      text-align: center
+    }
 
-        #home img {
-            width: 600px;
-        }
+    #clear-action,
+    #print-action {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      display: none;
+      text-align: left;
+    }
 
-        #home p {
-            font-size: 1.2rem;
-        }
+    #print-action {
+      left: 85%;
+    }
 
-        #starter,
-        #feature {
-            padding: 1rem;
-            background-color: #fcfcfc;
-        }
+    .pagination-ctn {
+      display: none;
+      padding: 0.5rem;
+      user-select: none;
+    }
 
-        #starter .btn {
-            background-color: white;
-            margin: 1rem 0;
-        }
+    .pagination-list {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      justify-content: center;
+    }
 
-        #starter ul,
-        #feature ul {
-            padding-left: 1rem;
-        }
+    .pagination-list>li {
+      margin: 1rem;
+      border: 1px solid var(--primary);
+      padding: 0.2rem 1.1rem;
+      margin: 0.2rem;
+    }
 
-        #multiple-image>div {
-            display: flex;
-            width: 100%;
-            justify-content: space-evenly;
-        }
+    .pagination-list a {
+      text-decoration: none;
+      color: var(--primary);
+    }
 
-        #multiple-image>div>div {
-            padding: 1rem;
-        }
+    .paginationjs-nav {
+      text-align: center;
+    }
 
-        #multiple-image>div p {
-            margin: 0rem !important;
-        }
+    .pagination-list .active {
+      background-color: var(--primary);
+    }
 
-        #home img,
-        #multiple-image>div img {
-            width: 100%;
-            height: auto;
-        }
+    .pagination-list .active a {
+      color: white;
+    }
 
-        @media only screen and (max-width: 800px) {
-
-            #home>div,
-            #multiple-image>div {
-                display: block;
-            }
-
-            #home img {
-                margin-top: 1rem;
-            }
-
-            #multiple-image>div>div {
-                padding: 0rem;
-                margin-bottom: 1rem;
-            }
-        }
-    </style>
+    .pagination-list .disabled {
+      background-color: white;
+    }
+  </style>
 </head>
 
 <body>
-    <header>
-        <div id="links-ctn">
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#feature">Feature</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-        <div id="title">
-            <h1>PictureThis Free</h1>
-            <h4>Create dynamic image tables with your data – Use an image table to filter your dashboards.</h4>
-            <button class="btn btn-outline-primary">Get Started</button>
-        </div>
-    </header>
-    <section id="home">
-        <div>
-            <div>
-                <p>The PictureThis Tableau extension helps you create dynamic image tables that can be used as a filter
-                    in
-                    your
-                    dashboard. Use Image URLs from your dataset that automatically create a responsive image table. The
-                    images
-                    will
-                    act as a filter on another target sheet in your dashboard. Images are not stored in your dashboard,
-                    they
-                    will
-                    dynamically be lined up in an image table based on your data and can be used as a filter!
-                </p>
-            </div>
-            <div>
-                <img src="./assets/bg_1.png" alt="bg_1" />
-            </div>
-        </div>
-        <div style="background: white;">
-            <a href="https://appsfortableau.infotopics.com/extensions-for-tableau/picturethis/">To learn more about this
-                extension visit its official site by clicking this link.</a>
-        </div>
-    </section>
+  <section id="main">
+    <ul id="images-ul">
 
-    <section id="starter">
-        <h2>How to get started?</h2>
-        <ul>
-            <li>
-                <p>To integrate this extension you will need TREX (Tableau Extension) file.</p>
-                <button class="btn btn-outline-primary btn-block">Download TREX file</button>
-            </li>
-            <li>
-                <p>
-                    Start Tableau and open a workbook that has a dashboard, or open a workbook and create a new
-                    dashboard.
-                    For example, you could use one of the Tableau sample workbooks like Superstore to start with.
-                </p>
-            </li>
-            <li>
-                <p>
-                    In the dashboard, under Objects, select Extension and drag it on to the dashboard.
-                </p>
-                <img src="https://tableau.github.io/extensions-api/assets/frelard_objects_extension.png" />
-            </li>
-            <li>
-                <p>
-                    A dialog box will appear select the <b>My Extensions</b>. Locate the <b>PictureThis.trex</b> file.
-                </p>
-            </li>
-            <li>
-                <p>
-                    For first time it will ask for the permission.
-                    <a href="https://help.tableau.com/current/server/en-us/dashboard_extensions_server.htm">
-                        To learn more about providing permission on Tableau click on this link.
-                    </a>
-                </p>
-            </li>
-            <li>
-                <p>
-                    If you are starting extension a configure button will appear. On clicking on it configuration panel
-                    will open
-                    select a sheet and column and enjoy my extension.
-                </p>
-            </li>
-        </ul>
-    </section>
-    <p style="padding: 1rem; text-align: center">
-        <a
-            href="https://tableau.github.io/extensions-api/docs/trex_getstarted.html#:~:text=In%20the%20dashboard%2C%20under%20Objects,location%20of%20the%20web%20application.">
-            To learn more about how to integrate Tableau extension click on this link.
-        </a>
-    </p>
-    </section>
-    <section id="feature">
-        <h2>Feature</h2>
-        <ul>
-            <li>
-                <div id="multiple-image">
-                    <p>This extension allows user to select multiple images.</p>
-                    <div>
-                        <div>
-                            <p>
-                                Select multiple images by checking it as image on configuration setting.
-                            </p>
-                            <img src="/assets/bg_2.png" height="300px" alt="configuration-setting"
-                                title="configuration-setting">
-                        </div>
-                        <div>
-                            <p>On dashboard for card layout you will get swipable carousel.</p>
-                            <img src="/assets/bg_3.png" alt="dashboard-view" title="dashboard-view">
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </section>
-    <footer id="contact">
+    </ul>
+    <div class="table-responsive">
+      <table id="images-table" class="table table-borderless border-primary">
+      </table>
+    </div>
+  </section>
+  <section class="pagination-ctn">
 
-    </footer>
+  </section>
+  <section id="clear-action">
+    <button type="button" class="btn btn-danger">Clear Filter</button>
+  </section>
+  <section id="print-action">
+    <button type="button" class="btn btn-secondary">Print</button>
+  </section>
+  <section id="log"></section>
+  <section id="configure">
+    <img
+      src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/48/000000/external-picture-photography-dreamstale-lineal-dreamstale.png" />
+    <h4>PictureThis Free</h4>
+    <button type="button" class="btn btn-primary">Configure</button>
+  </section>
+  <section id="error">
+    <h4>Please check your configuration is correct.</h4>
+  </section>
+  <div class="modal fade" id="known-error" tabindex="-1" role="dialog" aria-labelledby="known-error" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" style="min-width: 88px">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.2/viewer.min.js"
+    integrity="sha512-lzNiA4Ry7CjL8ewMGFZ5XD4wIVaUhvV3Ct9BeFmWmyq6MFc42AdOCUiuUtQgkrVVELHA1kT7xfSLoihwssusQw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js"
+    integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script src="https://pagination.js.org/dist/2.1.5/pagination.min.js"></script>
+  <script>
+    const logSection = document.querySelector("#log");
+    let selectedContainer = [];
+
+    let isCtrlClicked = false;
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Control") {
+        isCtrlClicked = true;
+      }
+    });
+
+    document.addEventListener("keyup", function (e) {
+      if (e.key === "Control") {
+        isCtrlClicked = false;
+        const filterArr = [];
+        const dashboardSetting = main.data.dashboardSetting;
+        selectedContainer.forEach(item => {
+          item.elem.style.backgroundColor = "";
+          if (item.active) filterArr.push(item.value);
+        });
+        if (filterArr.length === 0) return;
+        dashboardSetting.workSheets.forEach(item => {
+          if (dashboardSetting.type === "filter")
+            item.applyFilterAsync(dashboardSetting.column, filterArr, "replace");
+          else
+            item.selectMarksByValueAsync([{
+              fieldName: dashboardSetting.column,
+              value: filterArr
+            }], "select-replace");
+        });
+        main.clearActionCtn.style.display = "block";
+        selectedContainer = [];
+      }
+    });
+
+    const modalError = {
+      name: "known-error",
+      section: document.getElementById("known-error"),
+      execute: undefined,
+      start: function (title, body, startBtnTitle, execute) {
+        this.execute = execute;
+        this.title.innerHTML = title;
+        this.body.innerHTML = body;
+        this.startBtn.innerHTML = startBtnTitle;
+        this.startBtn.addEventListener("click", this.execute);
+        $(this.section).modal("show");
+      },
+      destroy: function () {
+        this.title.innerHTML = "";
+        this.body.innerHTML = "";
+        this.startBtn.innerHTML = "";
+        this.startBtn.removeEventListener("click", this.execute);
+        this.execute = undefined;
+      },
+      title: document.querySelector("#known-error .modal-title"),
+      body: document.querySelector("#known-error .modal-body"),
+      startBtn: document.querySelector("#known-error .btn-primary")
+    }
+
+    $("#known-error").on("hidden.bs.modal", function (e) {
+      modalError.destroy();
+    });
+
+    function createLog(obj) {
+      const p = document.createElement("p");
+      p.innerHTML = obj.toString();
+      logSection.appendChild(p);
+    }
+
+    const main = {
+      data: {},
+      workSheet: undefined,
+      filterColumnName: "",
+      re: 0,
+      start: function () {
+        main.clear();
+        main.destroy();
+
+        tableau.extensions.initializeAsync({ configure: configure }).then(async function () {
+          main.tableau = tableau;
+          main.removeSettingEvent = tableau.extensions.settings.addEventListener(tableau.TableauEventType.SettingsChanged, function () {
+            main.clearBtn.dispatchEvent(new Event("click"));
+            main.start();
+          });
+          const configureSetting = getSetting("setting");
+          if (configureSetting) {
+            main.configureDiv.style.display = "none";
+            main.data = JSON.parse(configureSetting);
+            main.imageList.style.background = main.data.color.background;
+            main.imageTable.parentElement.style.background = main.data.color.backgroud;
+            const dashboardSetting = main.data.dashboardSetting;
+            if (dashboardSetting.workSheetsName.length > 0) {
+              dashboardSetting.workSheets = dashboardSetting.workSheetsName.map(item => getWorkSheet(tableau, item));
+              const workSheet = getWorkSheet(tableau, main.data.workSheetName);
+              if (!workSheet) {
+                modalError.start("Worksheet not found", `Worksheet name ${main.data.workSheetName} is not found.`, "Ok", function () {
+                  $("#known-error").modal("hide");
+                });
+                return;
+              }
+              const dataTable = await workSheet.getSummaryDataAsync();
+              if (!dataTable) {
+                modalError.start("Data not found", `The current worksheet doesn't contain datatable.`, "Ok", function () {
+                  $("#known-error").modal("hide");
+                });
+                return;
+              }
+              const columnsName = [dashboardSetting.column, dashboardSetting.urlActionColumn].filter(item => item !== "");
+              const columns = columnsName.map(columnName => findColumnByName(dataTable.columns, columnName));
+              const data = create2DData(columns, dataTable.data);
+              dashboardSetting.table = data;
+            }
+            await createList(tableau);
+            const label = main.data.label;
+            main.body.style.textAlign = label.align;
+            main.root.style.fontSize = label.fontSize;
+            main.body.style.fontFamily = label.fontFamily;
+
+          } else main.configureDiv.style.display = "block";
+        });
+      },
+      clear: function () {
+        main.imageList.innerHTML = "";
+        main.imageTable.innerHTML = "";
+        main.imageList.style.display = "none";
+        main.imageTable.style.display = "none";
+        logSection.innerHTML = "";
+        if (main.removeFilterListener) main.removeFilterListener();
+        if (main.removeSelectListener) main.removeSelectListener();
+      },
+      destroy: function () {
+        if (main.removeSettingEvent) main.removeSettingEvent();
+        main.imageListViewer.hide();
+        main.imageTableViewer.hide();
+      },
+      removeSettingEvent: undefined,
+      imageMainCtn: document.querySelector("#main"),
+      imageList: document.querySelector("#images-ul"),
+      imageTable: document.querySelector("#images-table"),
+      configureDiv: document.querySelector("#configure"),
+      configureBtn: document.querySelector("#configure .btn"),
+      error: document.querySelector("#error"),
+      clearActionCtn: document.querySelector("#clear-action"),
+      printActionCtn: document.querySelector("#print-action"),
+      clearBtn: document.querySelector("#clear-action button"),
+      printBtn: document.querySelector("#print-action button"),
+      body: document.querySelector("body"),
+      root: document.querySelector("*"),
+      pagination: document.querySelector(".pagination-ctn"),
+    };
+
+    main.imageListViewer = new Viewer(main.imageList);
+    main.imageTableViewer = new Viewer(main.imageTable);
+
+    main.clearBtn.addEventListener("click", function (e) {
+      main.clearActionCtn.style.display = "none";
+      const dashboardSetting = main.data.dashboardSetting;
+      if (dashboardSetting) {
+        dashboardSetting.workSheets.forEach(worksheet => {
+          if (dashboardSetting.type === "filter") {
+            worksheet.clearFilterAsync(dashboardSetting.column);
+          } else {
+            worksheet.clearSelectedMarksAsync();
+          }
+        });
+      }
+    });
+
+    main.printBtn.addEventListener("click", e => window.print());
+
+    async function createList(tableau) {
+      const dashboardSetting = main.data.dashboardSetting;
+      const workSheet = getWorkSheet(tableau, main.data.workSheetName);
+      if (!workSheet) {
+        modalError.start("Worksheet not found", `Worksheet name ${main.data.workSheetName} is not found.`, "Ok", function () {
+          $("#known-error").modal("hide");
+        });
+        return;
+      }
+      main.workSheet = workSheet;
+      main.removeFilterListener = workSheet.addEventListener("filter-changed", function () {
+        main.start();
+      });
+      main.removeSelectListener = workSheet.addEventListener("mark-selection-changed", function () {
+        main.start();
+      });
+      dataTable = await workSheet.getSummaryDataAsync();
+      if (!dataTable) {
+        modalError.start("Data not found", `The current worksheet doesn't contain datatable.`, "Ok", function () {
+          $("#known-error").modal("hide");
+        });
+        return;
+      }
+      let columns = main.data.columns.filter(item => item.position !== "").sort((a, b) => a.position - b.position);
+      const columnList = [];
+      columns.forEach(item => {
+        const column = findColumnByName(dataTable.columns, item.name);
+        if (column) {
+          columnList.push({ ...item, column: column });
+        }
+      });
+      columns = columnList.map(item => item.column);
+      const data = create2DData(columns, dataTable.data);
+      const layout = main.data.layoutData;
+      const cardContent = main.data.cardContent;
+      const toolTip = main.data.toolTip;
+      if (cardContent.active || toolTip.active) {
+        const columns = dataTable.columns;
+        const arr = [];
+        for (let row of dataTable.data) {
+          let res = {};
+          columns.forEach(column => {
+            res[column.fieldName] = row[column.index].value;
+          })
+          arr.push(res);
+        }
+        cardContent.table = arr;
+        toolTip.table = arr;
+      }
+      const pagination = main.data.pagination;
+      // Card
+      if (main.data.layout === "card") {
+        main.imageList.style.display = "flex";
+        function cardPage(dataSource, page) {
+          main.imageList.innerHTML = "";
+          let start = (page.pageNumber - 1) * page.pageSize;
+          let end = start + parseInt(page.pageSize);
+          end = end > data.length ? data.length : end;
+          createCardNew(data, columnList, start, end);
+          if (!pagination.isRange) {
+            document.querySelectorAll(".paginationjs-ellipsis").forEach(item => item.style.display = "none");
+          }
+          main.imageListViewer.update();
+        }
+        if (pagination.active) {
+          main.pagination.style.display = "block";
+          $(main.pagination).pagination({
+            dataSource: data,
+            pageSize: pagination.item,
+            pageRange: Math.floor(pagination.control / 2),
+            showNext: true,
+            showPrevious: true,
+            ulClassName: "pagination-list",
+            showNavigator: pagination.isCount,
+            prevText: "Back",
+            nextText: "Next",
+            showFirstOnEllipsisShow: false,
+            showLastOnEllipsisShow: false,
+            callback: cardPage
+          });
+        } else {
+          main.pagination.style.display = "none";
+          createCardNew(data, columnList, 0, data.length);
+          main.imageListViewer.update();
+        }
+      }
+      // Table
+      else {
+        main.imageTable.style.display = "table";
+
+        function tablePage(dataSource, page) {
+          main.imageTable.innerHTML = "";
+          if (layout.table.headers) {
+            createColumnNew(columnList);
+          }
+          let start = (page.pageNumber - 1) * page.pageSize;
+          let end = start + parseInt(page.pageSize);
+          end = end > data.length ? data.length : end;
+          createTableNew(data, columnList, start, end);
+          if (!pagination.isRange) {
+            document.querySelectorAll(".paginationjs-ellipsis").forEach(item => item.style.display = "none");
+          }
+          main.imageTableViewer.update();
+        }
+
+        if (pagination.active) {
+          main.pagination.style.display = "block";
+          $(main.pagination).pagination({
+            dataSource: data,
+            pageSize: pagination.item,
+            pageRange: Math.floor(pagination.control / 2),
+            showNext: true,
+            showPrevious: true,
+            ulClassName: "pagination-list",
+            showNavigator: pagination.isCount,
+            prevText: "Back",
+            nextText: "Next",
+            showFirstOnEllipsisShow: false,
+            showLastOnEllipsisShow: false,
+            callback: tablePage
+          });
+        } else {
+          main.pagination.style.display = "none";
+          if (layout.table.headers) {
+            createColumnNew(columnList);
+          }
+          createTableNew(data, columnList, 0, data.length);
+          main.imageTableViewer.update();
+        }
+      }
+
+
+      if (main.data.layoutData.print) main.printActionCtn.style.display = "block";
+      else main.printActionCtn.style.display = "none";
+    }
+
+    function createColumnNew(columnList) {
+      const tr = document.createElement("tr");
+      tr.style.borderColor = main.data.color.border.color;
+      for (let i = 0; i < columnList.length; i++) {
+        const td = document.createElement("td");
+        const alias = columnList[i].formatting.alias;
+        td.innerHTML = alias;
+        tr.appendChild(td);
+        td.style.fontWeight = 500;
+      }
+      main.imageTable.appendChild(tr);
+    }
+
+    function createTableNew(data, columnList, start, end) {
+      const layout = main.data.layoutData;
+      const dashboardSetting = main.data.dashboardSetting;
+      const toolTip = main.data.toolTip;
+
+      for (let i = start; i < end; i++) {
+        const tr = document.createElement("tr");
+        tr.style.borderColor = main.data.color.border.color;
+        tr.style.color = main.data.color.text.color;
+        tr.style.backgroundColor = main.data.color.table.background;
+        if (main.data.color.table.banding.active && i % 2 === 1)
+          tr.style.backgroundColor = main.data.color.table.banding.background;
+        for (let j = 0; j < data[0].length; j++) {
+          const td = document.createElement("td");
+          td.style.backgroundColor = "none";
+          td.style.padding = main.data.layoutData.table.padding;
+          td.style.overflow = "hidden";
+          if (columnList[j].isImageURL) {
+            const div = document.createElement("div");
+            const img = document.createElement("img");
+            img.src = data[i][j];
+            img.style.margin = "auto";
+            img.style.height = layout.image.height;
+            if (layout.image.crop) {
+              img.style.objectFit = "cover";
+              img.style.width = "100%";
+            }
+            img.style.padding = layout.image.padding;
+            div.appendChild(img);
+            td.appendChild(div);
+          } else {
+            const p = document.createElement("p");
+            let text = data[i][j];
+            const { format, decimal, prefix, suffix, displayUnit, isThousand } = columnList[j].formatting;
+            if (format === "Barcode") {
+              const img = document.createElement("img");
+              $(img).JsBarcode(text);
+              img.addEventListener("contextmenu", function (e) {
+                e.stopPropagation()
+              });
+              p.appendChild(img);
+            } else if (format === "Text") {
+              p.innerHTML = prefix + text + suffix;
+            } else if (format === "Decimal") {
+              if (decimal !== "")
+                text = Number(text).toFixed(decimal);
+              text = getDisplayUnit(text, displayUnit);
+              if (isThousand && displayUnit === "None")
+                text = Number(text).toLocaleString();
+              p.innerHTML = prefix + text + suffix;
+            } else if (format === "Percentage") {
+              text = Number(text) * 100;
+              text = text.toLocaleString() + "%";
+              p.innerHTML = text;
+            } else {
+              p.innerHTML = text;
+            }
+            td.appendChild(p);
+          }
+
+          tr.appendChild(td);
+        }
+        if (dashboardSetting.workSheetsName.length > 0 && dashboardSetting.type !== "" && dashboardSetting.column !== "") {
+          tr.dataset.filterValue = dashboardSetting.table[i][0];
+          tr.dataset.isAlreadySelected = "false";
+          tr.addEventListener("click", function (e) {
+            if (e.target.nodeName === "IMG" || !isCtrlClicked) return;
+            const filterValue = e.currentTarget.dataset.filterValue;
+            const isAlreadySelected = e.currentTarget.dataset.isAlreadySelected;
+            const position = parseInt(e.currentTarget.dataset.position);
+            if (isAlreadySelected === "false") {
+              selectedContainer.push({
+                elem: e.currentTarget,
+                active: true,
+                value: filterValue
+              });
+              e.currentTarget.style.backgroundColor = "rgba(0,0,255,0.25)";
+              e.currentTarget.dataset.position = selectedContainer.length - 1;
+              e.currentTarget.dataset.isAlreadySelected = "true";
+            } else {
+              e.currentTarget.style.backgroundColor = "";
+              if (position > -1 && selectedContainer.length > 0) {
+                e.currentTarget.dataset.isAlreadySelected = "false";
+                delete e.currentTarget.dataset.position;
+                selectedContainer[position].active = false;
+              }
+            }
+          });
+        }
+
+        if (toolTip.active) {
+          let text = `${toolTip.text}`;
+          const words = regexCheck(text);
+          for (let j = 0; j < words.length; j++) {
+            text = replaceAll(text, `<<${words[j]}>>`, toolTip.table[i][words[j]] ? toolTip.table[i][words[j]] : `&lt;&lt;${words[j]}&gt;&gt;`);
+          }
+          tippy(tr, { content: text, theme: "light", allowHTML: true, followCursor: true, animation: "scale" });
+        }
+
+        if (dashboardSetting.urlActionColumn !== "" && dashboardSetting.workSheetsName.length > 0) {
+          tr.dataset.link = dashboardSetting.table[i][dashboardSetting.table[i].length - 1];
+          tr.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+            const link = e.currentTarget.dataset.link;
+            window.open(link);
+            return false;
+          });
+        }
+
+        main.imageTable.appendChild(tr);
+      }
+    }
+
+    function createCardNew(data, columnList, start, end) {
+      const layout = main.data.layoutData;
+      const dashboardSetting = main.data.dashboardSetting;
+      const conditionalCard = main.data.conditionalCard;
+      const cardContent = main.data.cardContent;
+      const toolTip = main.data.toolTip;
+
+      for (let i = start; i < end; i++) {
+        const li = document.createElement("li");
+        li.style.backgroundColor = main.data.color.card.background;
+        li.style.borderColor = main.data.color.border.color;
+        li.style.color = main.data.color.text.color;
+        li.style.width = layout.card.width;
+        li.style.padding = layout.card.padding;
+        li.style.margin = layout.card.margin;
+        li.style.borderRadius = layout.border.radius;
+        if (main.data.color.card.banding.active && i % 2 === 1) {
+          li.style.backgroundColor = main.data.color.card.banding.background;
+        }
+        const imageDivCtn = document.createElement("div");
+        li.appendChild(imageDivCtn);
+
+        for (let j = 0; j < data[0].length; j++) {
+          if (columnList[j].isImageURL) {
+            const div = document.createElement("div");
+            div.style.overflow = "hidden";
+            const img = document.createElement("img");
+            img.src = data[i][j];
+            img.style.margin = "auto";
+            div.appendChild(img);
+            img.style.height = layout.image.height;
+            img.style.padding = layout.image.padding;
+            if (layout.image.crop) {
+              img.style.objectFit = "cover";
+              img.style.width = "100%";
+            }
+            imageDivCtn.appendChild(div);
+          } else if (!cardContent.active) {
+            const p = document.createElement("p");
+            let text = data[i][j];
+            const { format, decimal, prefix, suffix, displayUnit, isThousand } = columnList[j].formatting;
+            if (format === "Barcode") {
+              const img = document.createElement("img");
+              $(img).JsBarcode(text);
+              img.addEventListener("contextmenu", function (e) {
+                e.stopPropagation()
+              });
+              p.appendChild(img);
+            } else if (format === "Text") {
+              p.innerHTML = prefix + text + suffix;
+            } else if (format === "Decimal") {
+              if (decimal !== "")
+                text = Number(text).toFixed(decimal);
+              text = getDisplayUnit(text, displayUnit);
+              if (isThousand && displayUnit === "None")
+                text = Number(text).toLocaleString();
+              p.innerHTML = prefix + text + suffix;
+            } else if (format === "Percentage") {
+              text = Number(text) * 100;
+              text = text.toLocaleString() + "%";
+              p.innerHTML = text;
+            } else {
+              p.innerHTML = text;
+            }
+            li.appendChild(p);
+          }
+
+          if (conditionalCard.active && columnList[j].name === conditionalCard.column) {
+            for (let k = 0; k < conditionalCard.rows.length; k++) {
+              if (conditionalCard.rows[k].value === data[i][j]) {
+                li.style.backgroundColor = conditionalCard.rows[k].color;
+              }
+            }
+          }
+        }
+
+        if (cardContent.active) {
+          const div = document.createElement("div");
+          let text = `${cardContent.text}`;
+          const words = regexCheck(text);
+          for (let j = 0; j < words.length; j++) {
+            text = replaceAll(text, `<<${words[j]}>>`, cardContent.table[i][words[j]] ? cardContent.table[i][words[j]] : `&lt;&lt;${words[j]}&gt;&gt;`);
+          }
+          div.innerHTML = text;
+          li.appendChild(div);
+        }
+
+        if (toolTip.active) {
+          let text = `${toolTip.text}`;
+          const words = regexCheck(text);
+          for (let j = 0; j < words.length; j++) {
+            text = replaceAll(text, `<<${words[j]}>>`, toolTip.table[i][words[j]] ? toolTip.table[i][words[j]] : `&lt;&lt;${words[j]}&gt;&gt;`);
+          }
+          tippy(li, { content: text, theme: "light", allowHTML: true, followCursor: true, animation: "scale" });
+        }
+
+        if (dashboardSetting.workSheetsName.length > 0 && dashboardSetting.type !== "" && dashboardSetting.column !== "") {
+          li.dataset.filterValue = dashboardSetting.table[i][0];
+          li.dataset.isAlreadySelected = "false";
+          li.addEventListener("click", function (e) {
+            if (e.target.nodeName === "IMG" || !isCtrlClicked) return;
+            const filterValue = e.currentTarget.dataset.filterValue;
+            const { table } = main.data.dashboardSetting;
+            const isAlreadySelected = e.currentTarget.dataset.isAlreadySelected;
+            const position = parseInt(e.currentTarget.dataset.position);
+
+            if (isAlreadySelected === "false") {
+              selectedContainer.push({
+                elem: e.currentTarget,
+                active: true,
+                value: filterValue
+              });
+              e.currentTarget.style.backgroundColor = "rgba(0,0,255,0.25)";
+              e.currentTarget.dataset.position = selectedContainer.length - 1;
+              e.currentTarget.dataset.isAlreadySelected = "true";
+            } else {
+              e.currentTarget.style.backgroundColor = "";
+              if (position > -1 && selectedContainer.length > 0) {
+                e.currentTarget.dataset.isAlreadySelected = "false";
+                delete e.currentTarget.dataset.position;
+                selectedContainer[position].active = false;
+              }
+            }
+          });
+        }
+
+        if (dashboardSetting.urlActionColumn !== "" && dashboardSetting.workSheetsName.length > 0) {
+          li.dataset.link = dashboardSetting.table[i][dashboardSetting.table[i].length - 1];
+          li.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+            const link = e.currentTarget.dataset.link;
+            window.open(link);
+            return false;
+          });
+        }
+
+        main.imageList.appendChild(li);
+        $(imageDivCtn).slick({
+          dots: true,
+          arrows: false,
+          infinite: false,
+        });
+      }
+    }
+
+    function regexCheck(str) {
+      let words = [];
+      str.replace(/<<(.+?)>>/g, function ($0, $1) { words.push($1) });
+      return words;
+    }
+
+    const escapeRegExp = (string) => string.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+
+    const replaceAll = (str, find, replace) => str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+
+    function getDisplayUnit(number, displayUnit) {
+      if (displayUnit === "Thousands (K)") {
+        number = number / 1000 + "K";
+      } else if (displayUnit === "Millions (M)") {
+        number = number / 1000000 + "M";
+      } else if (displayUnit === "Billions (B)") {
+        number = number / 1000000000 + "B";
+      }
+      return number;
+    }
+
+    function getWorkSheet(tableau, workSheetName) {
+      const worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
+      for (let i = 0; i < worksheets.length; i++) {
+        if (worksheets[i].name === workSheetName) {
+          return worksheets[i];
+        }
+      }
+      return undefined;
+    }
+
+    function findColumnByName(columns, columnName) {
+      for (let i = 0; i < columns.length; i++) {
+        if (columns[i].fieldName === columnName) {
+          return columns[i];
+        }
+      }
+      return undefined;
+    }
+
+    function getRowData(column, data) {
+      let res = [];
+      for (let row of data) {
+        res.push(row[column.index].value);
+      }
+      return res;
+    }
+
+    function create2DData(columns, data) {
+      const arr = [];
+      for (let row of data) {
+        let res = [];
+        columns.forEach(column => {
+          if (column)
+            res.push(row[column.index].value);
+          else res.push("");
+        });
+        arr.push(res);
+      }
+      return arr;
+    }
+
+    main.configureBtn.addEventListener("click", function (e) {
+      tableau.extensions.initializeAsync({ configure: configure }).then(async function () {
+        configure();
+      });
+    });
+
+    function getSetting(key) {
+      return tableau.extensions.settings.get(key);
+    }
+
+    function configure() {
+      const popupUrl = `${window.location.origin}/configure.html`;
+      let defaultPayload = "UI";
+      tableau.extensions.ui
+        .displayDialogAsync(popupUrl, defaultPayload, {
+          height: 600,
+          width: 1200,
+        })
+        .then((closePayload) => {
+          main.start();
+        })
+        .catch((error) => {
+          if (error.errorCode === tableau.ErrorCodes.DialogClosedByUser) {
+          }
+        });
+    }
+
+    try {
+      main.start();
+    } catch (err) {
+      modalError.start("Error", `<p>${err}</p><p>Please try reconfiguring or check your worksheet settings.</p>`, "Configure", function () {
+        configure();
+        $("#known-error").modal("hide");
+      });
+    }
+    /**
+     * Created by Harsh
+     * Follow me on github https://github.com/hp-01
+    */
+  </script>
 </body>
 
 </html>

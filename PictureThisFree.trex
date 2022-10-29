@@ -7,7 +7,7 @@
     <author name="Harsh Pandey" email="harshpandey3421@gmail.com" organization="PictureThis Free" website="https://squid-app-4po7k.ondigitalocean.app/home"/>
     <min-api-version>0.9</min-api-version>
     <source-location>
-      <url>https://squid-app-4po7k.ondigitalocean.app/</url>
+      <url>https://squid-app-4po7k.ondigitalocean.app/home.html</url>
     </source-location>
     <icon></icon>
     <permissions>
